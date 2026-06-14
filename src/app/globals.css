@@ -1,26 +1,360 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Surface Colors - Base Tones */
+  --surface: #131315;
+  --surface-dim: #131315;
+  --surface-bright: #39393b;
+  --surface-container-lowest: #0e0e10;
+  --surface-container-low: #1c1b1d;
+  --surface-container: #201f22;
+  --surface-container-high: #2a2a2c;
+  --surface-container-highest: #353437;
+  --on-surface: #e5e1e4;
+  --on-surface-variant: #bec8d2;
+  --inverse-surface: #e5e1e4;
+  --inverse-on-surface: #313032;
+  
+  /* Outline & Borders */
+  --outline: #88929b;
+  --outline-variant: #3e4850;
+  
+  /* Primary Colors */
+  --primary: #89ceff;
+  --on-primary: #00344d;
+  --primary-container: #0ea5e9;
+  --on-primary-container: #003751;
+  --inverse-primary: #006591;
+  --primary-fixed: #c9e6ff;
+  --primary-fixed-dim: #89ceff;
+  --on-primary-fixed: #001e2f;
+  --on-primary-fixed-variant: #004c6e;
+  
+  /* Secondary Colors */
+  --secondary: #7bd0ff;
+  --on-secondary: #00354a;
+  --secondary-container: #00a6e0;
+  --on-secondary-container: #00374d;
+  --secondary-fixed: #c4e7ff;
+  --secondary-fixed-dim: #7bd0ff;
+  --on-secondary-fixed: #001e2c;
+  --on-secondary-fixed-variant: #004c69;
+  
+  /* Tertiary Colors */
+  --tertiary: #7bd1fa;
+  --on-tertiary: #003547;
+  --tertiary-container: #4ba5cc;
+  --on-tertiary-container: #00384b;
+  --tertiary-fixed: #c0e8ff;
+  --tertiary-fixed-dim: #7bd1fa;
+  --on-tertiary-fixed: #001e2b;
+  --on-tertiary-fixed-variant: #004d66;
+  
+  /* Error Colors */
+  --error: #ffb4ab;
+  --on-error: #690005;
+  --error-container: #93000a;
+  --on-error-container: #ffdad6;
+  
+  /* Background */
+  --background: #131315;
+  --on-background: #e5e1e4;
+  --surface-tint: #89ceff;
+  --surface-variant: #353437;
+
+  /* Semantic Surfaces for Dark Mode */
+  --base: #000000;
+  --surface-elevated: #09090b;
+  --surface-elevated-high: #18181b;
+  --border-color: #27272a;
+  --border-color-light: #3e4850;
+  --text-primary: #e5e1e4;
+  --text-secondary: #bec8d2;
+  --text-tertiary: #88929b;
+
+  /* Spacing (4px baseline grid) */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 40px;
+  --spacing-2xl: 64px;
+  --spacing-gutter: 24px;
+  --spacing-margin-mobile: 16px;
+  --spacing-margin-desktop: 48px;
+
+  /* Rounded Corners */
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.375rem;
+  --radius-xl: 0.5rem;
+  --radius-2xl: 0.75rem;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* Shadow & Elevation */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --glow-primary: 0 0 20px rgba(137, 206, 255, 0.2);
+  --glow-primary-strong: 0 0 24px rgba(14, 165, 233, 0.3);
 }
 
 @theme inline {
+  --color-surface: var(--surface);
+  --color-surface-dim: var(--surface-dim);
+  --color-surface-bright: var(--surface-bright);
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-primary-container: var(--primary-container);
+  --color-secondary: var(--secondary);
+  --color-tertiary: var(--tertiary);
+  --color-error: var(--error);
+  
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-on-background: var(--on-background);
+  
+  --color-base: var(--base);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-surface-elevated-high: var(--surface-elevated-high);
+  --color-border: var(--border-color);
+  --color-border-light: var(--border-color-light);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --spacing-xs: var(--spacing-xs);
+  --spacing-sm: var(--spacing-sm);
+  --spacing-md: var(--spacing-md);
+  --spacing-lg: var(--spacing-lg);
+  --spacing-xl: var(--spacing-xl);
+  --spacing-2xl: var(--spacing-2xl);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-2xl: var(--radius-2xl);
+  --radius-full: var(--radius-full);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  @apply border-border;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--on-background);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Typography Scales */
+@layer components {
+  /* Headline Styles */
+  .headline-xl {
+    @apply text-5xl font-semibold leading-tight -tracking-0.02;
+  }
+
+  .headline-lg {
+    @apply text-4xl font-semibold leading-tight -tracking-0.02;
+  }
+
+  .headline-lg-mobile {
+    @apply text-2xl font-semibold leading-tight -tracking-0.01;
+  }
+
+  .headline-md {
+    @apply text-2xl font-medium leading-relaxed -tracking-0.01;
+  }
+
+  /* Body Text Styles */
+  .body-lg {
+    @apply text-lg font-normal leading-relaxed;
+  }
+
+  .body-md {
+    @apply text-base font-normal leading-relaxed;
+  }
+
+  .body-sm {
+    @apply text-sm font-normal leading-snug;
+  }
+
+  /* Label Styles */
+  .label-md {
+    @apply text-xs font-medium leading-none tracking-wide;
+  }
+
+  /* Monospace Styles */
+  .mono-sm {
+    @apply text-sm font-normal leading-relaxed;
+    font-family: var(--font-mono);
+  }
+
+  /* Button Styles */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-2.5 rounded-md bg-primary-container text-on-primary font-medium text-sm transition-colors duration-200 hover:bg-primary active:bg-inverse-primary disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-2.5 rounded-md border border-border-light bg-transparent text-primary hover:bg-surface-container transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-tertiary {
+    @apply inline-flex items-center justify-center px-6 py-2.5 rounded-md bg-transparent text-tertiary hover:bg-surface-container transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center px-6 py-2.5 text-primary hover:bg-surface-container rounded-md transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Input Styles */
+  .input-base {
+    @apply w-full px-4 py-2.5 rounded-md bg-base border border-border-color text-on-background placeholder-text-tertiary transition-colors duration-200;
+  }
+
+  .input-base:focus {
+    @apply border-primary outline-none shadow-lg;
+    box-shadow: 0 0 0 2px rgba(137, 206, 255, 0.2);
+  }
+
+  /* Chip/Tag Styles */
+  .chip {
+    @apply inline-flex items-center px-3 py-1.5 rounded-full bg-surface-container text-secondary text-sm font-medium;
+  }
+
+  .chip-small {
+    @apply inline-flex items-center px-2 py-1 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-medium;
+  }
+
+  /* Card Styles */
+  .card {
+    @apply rounded-lg bg-surface-elevated border border-border-color p-6 transition-colors duration-200;
+  }
+
+  .card-hover {
+    @apply card hover:bg-surface-elevated-high hover:border-outline-variant;
+  }
+
+  .card-interactive {
+    @apply card cursor-pointer hover:bg-surface-container-high border-border-color;
+  }
+
+  /* List Styles */
+  .list-item {
+    @apply flex items-center px-4 py-3 border-b border-surface-container-high last:border-b-0 hover:bg-surface-container transition-colors duration-150;
+  }
+
+  /* Progress Bar */
+  .progress-track {
+    @apply h-1 rounded-full bg-border-color overflow-hidden;
+  }
+
+  .progress-fill {
+    @apply h-full bg-primary rounded-full transition-all duration-300;
+  }
+
+  /* Navigation */
+  .nav-link {
+    @apply text-sm font-medium text-on-surface transition-colors duration-200 hover:text-primary relative;
+  }
+
+  .nav-link-active {
+    @apply text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-primary;
+  }
+
+  /* Divider */
+  .divider {
+    @apply border-b border-border-color;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center px-2 py-1 rounded-sm bg-primary-container text-on-primary text-xs font-semibold;
+  }
+
+  .badge-secondary {
+    @apply inline-flex items-center px-2 py-1 rounded-sm bg-secondary-container text-on-secondary text-xs font-semibold;
+  }
+
+  .badge-outline {
+    @apply inline-flex items-center px-2 py-1 rounded-sm border border-outline text-outline text-xs font-semibold;
+  }
+
+  /* Surface Levels */
+  .surface-level-0 {
+    @apply bg-base;
+  }
+
+  .surface-level-1 {
+    @apply bg-surface-elevated border border-border-color rounded-md;
+  }
+
+  .surface-level-2 {
+    @apply bg-surface-elevated-high border border-primary rounded-lg;
+    box-shadow: var(--glow-primary);
+  }
+
+  /* Glass Morphism Effect */
+  .glass {
+    @apply backdrop-blur-md bg-surface-elevated/40 border border-border-color rounded-lg;
+  }
+
+  /* Skeleton Loader */
+  .skeleton {
+    @apply bg-surface-container-high rounded-md animate-pulse;
+  }
+
+  /* Focus Ring Utility */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background rounded-md;
+  }
+
+  /* Text Utilities */
+  .text-primary {
+    @apply text-primary-container;
+  }
+
+  .text-secondary {
+    @apply text-on-surface-variant;
+  }
+
+  .text-tertiary {
+    @apply text-outline;
+  }
+
+  /* Responsive Spacing */
+  @media (max-width: 640px) {
+    body {
+      @apply text-sm;
+    }
+
+    .headline-lg {
+      @apply text-2xl;
+    }
+
+    .headline-md {
+      @apply text-xl;
+    }
+  }
 }
