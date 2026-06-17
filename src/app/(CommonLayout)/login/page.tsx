@@ -1,16 +1,17 @@
 "use client";
 
-import { useState, FormEvent, ChangeEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "../../../../public/logo.png";
 import logo_icon from "../../../../public/logo_icon.png";
+import {
+  getAuthorisationURLWithQueryParamsAndSetState,
+  signInAndUp,
+} from "supertokens-auth-react/recipe/thirdparty";
+import { useEffect, useRef, useState } from "react";
+import { initFrontEndAuth } from "@/src/lib/supertokens";
 
-interface LoginFormData {
-  email: string;
-  isLoading: boolean;
-  error: string | null;
-}
+initFrontEndAuth();
 
 const GoogleIcon = () => (
   <svg
@@ -38,20 +39,74 @@ const GoogleIcon = () => (
 );
 
 export default function LoginPage() {
-  const handleGoogleSignIn = async () => {};
+  const isCalled = useRef(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasOauthParams = urlParams.has("code") && urlParams.has("state");
+
+    if (hasOauthParams && !isCalled.current) {
+      isCalled.current = true;
+      setIsProcessing(true);
+
+      async function handleGoogleCallback() {
+        try {
+          const response = await signInAndUp();
+          if (response.status === "OK") {
+            window.location.assign("/");
+          } else {
+            window.alert("Login failed, please try again.");
+            setIsProcessing(false);
+          }
+        } catch (err) {
+          console.error(err);
+          setIsProcessing(false);
+        }
+      }
+
+      handleGoogleCallback();
+    }
+  }, []);
+
+  const handleGoogleLogin = async () => {
+    try {
+      const authUrl = await getAuthorisationURLWithQueryParamsAndSetState({
+        thirdPartyId: "google",
+        frontendRedirectURI: "http://localhost:3000/login",
+      });
+      window.location.assign(authUrl);
+    } catch (err) {
+      console.error("Error initiating Google login:", err);
+    }
+  };
+
+  if (isProcessing) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#07121f]">
+        <div className="w-10 h-10 rounded-full border-4 border-[var(--color-primary)]/10 border-t-[var(--color-primary)] animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center p-4 md:p-12 bg-[#07121f] text-white">
       <div className="fixed top-0 left-0 p-4 md:p-12 hidden md:block">
         <div className="flex items-center gap-2">
-          <Image src={logo} alt="Relay Logo" width={48} height={48} />
+          <Image src={logo} alt="Relay Logo" width={100} height={60} />
         </div>
       </div>
 
       <main className="w-full max-w-md flex flex-col items-center">
         <div className="mb-12 text-center flex flex-col items-center">
           <div className="w-16 h-16 bg-[#111827] border border-white/10 rounded-xl shadow-[0_20px_50px_rgba(126,215,255,0.18)] flex items-center justify-center mb-6">
-            <Image src={logo_icon} alt="Relay Logo" width={48} height={48} />
+            <Image
+              src={logo_icon}
+              alt="Relay Logo"
+              width={48}
+              height={48}
+              style={{ width: "auto", height: "auto" }}
+            />
           </div>
 
           <p className="text-base text-slate-300">
@@ -60,16 +115,22 @@ export default function LoginPage() {
         </div>
 
         <div className="w-full bg-[#0f172a] border border-white/10 rounded-3xl p-8 relative overflow-hidden shadow-[0_25px_80px_rgba(15,23,42,0.25)]">
-          <div className="absolute top-0 left-0 w-1 h-full bg-(--color-primary)/40" />
+          <div
+            className="absolute top-0 left-0 w-1 h-full"
+            style={{
+              background:
+                "linear-gradient(to bottom, var(--color-primary), transparent)",
+            }}
+          />
 
           <div className="flex flex-col gap-6">
             <button
-              onClick={handleGoogleSignIn}
-              className="w-full h-12 bg-[#111827] border border-white/10 hover:border-(--color-primary) hover:bg-[#0f172a] transition duration-150 rounded-2xl flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group"
+              onClick={handleGoogleLogin}
+              className="w-full h-12 bg-[#111827] border border-white/10 hover:border-[var(--color-primary)] hover:bg-[#0f172a] hover:cursor-pointer transition duration-150 rounded-2xl flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group"
               aria-label="Sign in with Google"
             >
               <GoogleIcon />
-              <span className="text-sm font-medium text-white transition duration-150 group-hover:text-(--color-primary)">
+              <span className="text-sm font-medium text-white transition duration-150 group-hover:text-[var(--color-primary)]">
                 Sign in with Google
               </span>
             </button>

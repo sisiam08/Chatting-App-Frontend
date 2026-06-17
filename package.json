@@ -9,10 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "better-auth": "^1.6.18",
     "next": "16.2.9",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "supertokens-auth-react": "^0.51.2",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
