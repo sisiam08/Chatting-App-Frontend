@@ -1,24 +1,134 @@
 @import "tailwindcss";
 
+/* ── Raw color values: Light theme (default) ────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --color-primary: #7ED7FF; /* Logo text color (main accent) */
+  --background: #f8fafc;
+  --foreground: #0f172a;
+
+  --c-primary: #0284c7;
+  --c-on-primary: #ffffff;
+  --c-primary-container: #e0f2fe;
+  --c-on-primary-container: #082f49;
+  --c-secondary: #475569;
+  --c-on-secondary: #ffffff;
+  --c-secondary-container: #dbeafe;
+  --c-on-secondary-container: #1e293b;
+  --c-tertiary: #475569;
+  --c-on-tertiary: #ffffff;
+  --c-tertiary-container: #e2e8f0;
+  --c-on-tertiary-container: #1e293b;
+  --c-surface: #f8fafc;
+  --c-on-surface: #0f172a;
+  --c-surface-variant: #f1f5f9;
+  --c-on-surface-variant: #475569;
+  --c-surface-container-lowest: #ffffff;
+  --c-surface-container-low: #f1f5f9;
+  --c-surface-container: #f1f5f9;
+  --c-surface-container-high: #e8ecf1;
+  --c-surface-container-highest: #dfe4ea;
+  --c-surface-dim: #e2e8f0;
+  --c-surface-bright: #ffffff;
+  --c-surface-tint: #0284c7;
+  --c-outline: #cbd5e1;
+  --c-outline-variant: #e2e8f0;
+  --c-inverse-surface: #1e293b;
+  --c-inverse-on-surface: #f8fafc;
+  --c-inverse-primary: #7ed7ff;
+  --c-error: #dc2626;
+  --c-on-error: #ffffff;
+  --c-error-container: #fee2e2;
+  --c-on-error-container: #7f1d1d;
 }
 
-@theme inline {
+/* ── Raw color values: Dark theme ───────────────────────────────────── */
+/* next-themes adds 'dark' class to <html> when dark mode is active      */
+.dark {
+  --background: #07121f;
+  --foreground: #e2e8f0;
+
+  --c-primary: #7ED7FF;
+  --c-on-primary: #07121f;
+  --c-primary-container: #004a77;
+  --c-on-primary-container: #cde5ff;
+  --c-secondary: #94a3b8;
+  --c-on-secondary: #07121f;
+  --c-secondary-container: #1e293b;
+  --c-on-secondary-container: #f1f5f9;
+  --c-tertiary: #94a3b8;
+  --c-on-tertiary: #07121f;
+  --c-tertiary-container: #475569;
+  --c-on-tertiary-container: #e2e8f0;
+  --c-surface: #07121f;
+  --c-on-surface: #ffffff;
+  --c-surface-variant: #0f172a;
+  --c-on-surface-variant: #94a3b8;
+  --c-surface-container-lowest: #050d1a;
+  --c-surface-container-low: #07121f;
+  --c-surface-container: #0f172a;
+  --c-surface-container-high: #0f172a;
+  --c-surface-container-highest: #1e293b;
+  --c-surface-dim: #07121f;
+  --c-surface-bright: #1e293b;
+  --c-surface-tint: #7ed7ff;
+  --c-outline: rgba(255, 255, 255, 0.1);
+  --c-outline-variant: rgba(255, 255, 255, 0.08);
+  --c-inverse-surface: #e2e8f0;
+  --c-inverse-on-surface: #07121f;
+  --c-inverse-primary: #0284c7;
+  --c-error: #ffb4ab;
+  --c-on-error: #690005;
+  --c-error-container: #93000a;
+  --c-on-error-container: #ffdad6;
+}
+
+/* ── Tailwind theme tokens (var() references = dynamic utilities) ─────── */
+/* Using @theme (NOT @theme inline) so Tailwind generates                   */
+/* bg-surface { background-color: var(--color-surface); } etc.             */
+/* which then resolves through the --c-* chain above dynamically.          */
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --color-primary: #7ED7FF;
-  }
+  /* Color tokens */
+  --color-primary: var(--c-primary);
+  --color-on-primary: var(--c-on-primary);
+  --color-primary-container: var(--c-primary-container);
+  --color-on-primary-container: var(--c-on-primary-container);
+  --color-secondary: var(--c-secondary);
+  --color-on-secondary: var(--c-on-secondary);
+  --color-secondary-container: var(--c-secondary-container);
+  --color-on-secondary-container: var(--c-on-secondary-container);
+  --color-tertiary: var(--c-tertiary);
+  --color-on-tertiary: var(--c-on-tertiary);
+  --color-tertiary-container: var(--c-tertiary-container);
+  --color-on-tertiary-container: var(--c-on-tertiary-container);
+  --color-surface: var(--c-surface);
+  --color-on-surface: var(--c-on-surface);
+  --color-surface-variant: var(--c-surface-variant);
+  --color-on-surface-variant: var(--c-on-surface-variant);
+  --color-surface-container-lowest: var(--c-surface-container-lowest);
+  --color-surface-container-low: var(--c-surface-container-low);
+  --color-surface-container: var(--c-surface-container);
+  --color-surface-container-high: var(--c-surface-container-high);
+  --color-surface-container-highest: var(--c-surface-container-highest);
+  --color-surface-dim: var(--c-surface-dim);
+  --color-surface-bright: var(--c-surface-bright);
+  --color-surface-tint: var(--c-surface-tint);
+  --color-outline: var(--c-outline);
+  --color-outline-variant: var(--c-outline-variant);
+  --color-inverse-surface: var(--c-inverse-surface);
+  --color-inverse-on-surface: var(--c-inverse-on-surface);
+  --color-inverse-primary: var(--c-inverse-primary);
+  --color-error: var(--c-error);
+  --color-on-error: var(--c-on-error);
+  --color-error-container: var(--c-error-container);
+  --color-on-error-container: var(--c-on-error-container);
+
+  /* Spacing tokens */
+  --spacing-sidebar-width: 240px;
+  --spacing-nav-rail-width: 60px;
 }
 
 body {
@@ -34,4 +144,65 @@ body {
   100% {
     transform: translateX(250%) skewX(-20deg);
   }
+}
+
+/* ── Dashboard non-color tokens (fonts, spacing, radii) ─────────────── */
+.dashboard-theme {
+  --radius-DEFAULT: 0.125rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
+
+  --spacing-gutter: 2.5rem;
+  --spacing-sidebar-width: 420px;
+  --spacing-nav-rail-width: 60px;
+  --spacing-margin-desktop: 2rem;
+  --spacing-margin-mobile: 1rem;
+  --spacing-container-max: 1440px;
+
+  --font-body-lg: "Inter", sans-serif;
+  --font-headline-sm: "Geist", sans-serif;
+  --font-headline-lg-mobile: "Geist", sans-serif;
+  --font-headline-lg: "Geist", sans-serif;
+  --font-label-md: "Geist", sans-serif;
+  --font-label-sm: "Geist", sans-serif;
+  --font-label-xs: "Geist", sans-serif;
+  --font-headline-md: "Geist", sans-serif;
+  --font-body-md: "Inter", sans-serif;
+
+  --font-size-body-lg: 16px;
+  --font-size-headline-sm: 18px;
+  --font-size-headline-lg-mobile: 24px;
+  --font-size-headline-lg: 30px;
+  --font-size-label-md: 12px;
+  --font-size-label-sm: 11px;
+  --font-size-headline-md: 24px;
+  --font-size-body-md: 14px;
+}
+
+/* ── Custom scrollbar ────────────────────────────────────────────────── */
+.dashboard-theme ::-webkit-scrollbar {
+  width: 4px;
+}
+
+.dashboard-theme ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dashboard-theme ::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.dashboard-theme:hover ::-webkit-scrollbar-thumb,
+.dashboard-theme *:hover::-webkit-scrollbar-thumb {
+  background: var(--c-surface-container-highest);
+}
+
+.dashboard-theme .hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.dashboard-theme .msg-bubble {
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }

@@ -1,7 +1,17 @@
-export default function DashboardLayout({
-  children,
+import { UserRole } from "@/src/interfaces";
+import { getUserInfo } from "@/src/services/userInfo.service";
+import { redirect } from "next/navigation";
+
+export default async function DashboardLayout({
+  user,
+  admin,
 }: Readonly<{
-  children: React.ReactNode;
+  user: React.ReactNode;
+  admin: React.ReactNode;
 }>) {
-  return <div>{children}</div>;
+  const userInfo = await getUserInfo();
+  if (!userInfo) {
+    redirect("/login");
+  }
+  return <div>{userInfo.role === UserRole.ADMIN ? admin : user}</div>;
 }
